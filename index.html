@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Visual Story Learner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="module">
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+      const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      mermaid.initialize({ 
+        startOnLoad: false,
+        theme: isDarkMode ? 'dark' : 'default',
+        themeVariables: {
+            'primaryColor': isDarkMode ? '#1e293b' : '#f1f5f9',       // slate-800, slate-100
+            'primaryTextColor': isDarkMode ? '#f1f5f9' : '#1e293b',    // slate-100, slate-800
+            'primaryBorderColor': isDarkMode ? '#38bdf8' : '#4f46e5', // sky-400, indigo-600
+            'lineColor': isDarkMode ? '#475569' : '#9ca3af',            // slate-600, slate-400
+            'textColor': isDarkMode ? '#e2e8f0' : '#0f172a',            // slate-200, slate-900
+            'mainBkg': isDarkMode ? '#1e293b' : '#f1f5f9',             // slate-800, slate-100
+            'nodeBorder': isDarkMode ? '#38bdf8' : '#4f46e5',          // sky-400, indigo-600
+        }
+      });
+      window.mermaid = mermaid;
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/svg-pan-zoom@3.6.1/dist/svg-pan-zoom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js`;
+    </script>
+    <style>
+      .mermaid-container .node > rect, .mermaid-container .node > polygon, .mermaid-container .node > circle, .mermaid-container .node > path {
+        transition: all 0.2s ease-in-out;
+      }
+      .mermaid-container .edgePath path {
+         transition: all 0.2s ease-in-out;
+      }
+      .mermaid-container .node.highlight > rect, .mermaid-container .node.highlight > polygon {
+        stroke-width: 4px !important;
+      }
+      .mermaid-container .edgePath.highlight-from > path, .mermaid-container .edgePath.highlight-to > path {
+        stroke-width: 3px !important;
+      }
+
+      :root {
+        --highlight-stroke-color: #ec4899; /* pink-500 */
+        --highlight-from-color: #22c55e; /* green-500 */
+        --highlight-to-color: #3b82f6;   /* blue-500 */
+      }
+
+      [data-theme="dark"] {
+        --highlight-stroke-color: #f9a8d4; /* pink-300 */
+        --highlight-from-color: #4ade80; /* green-400 */
+        --highlight-to-color: #60a5fa;   /* blue-400 */
+      }
+      
+      html.dark {
+        --highlight-stroke-color: #f9a8d4;
+        --highlight-from-color: #4ade80;
+        --highlight-to-color: #60a5fa;
+      }
+
+      .mermaid-container .node.highlight > rect, .mermaid-container .node.highlight > polygon {
+        stroke: var(--highlight-stroke-color) !important;
+      }
+      .mermaid-container .edgePath.highlight-from > path {
+        stroke: var(--highlight-from-color) !important;
+      }
+       .mermaid-container .edgePath.highlight-to > path {
+        stroke: var(--highlight-to-color) !important;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-markdown": "https://aistudiocdn.com/react-markdown@^10.1.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.28.0"
+  }
+}
+</script>
+</head>
+  <body class="bg-slate-50 dark:bg-slate-900">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
